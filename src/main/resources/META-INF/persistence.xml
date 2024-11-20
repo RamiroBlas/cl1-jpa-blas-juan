@@ -5,6 +5,10 @@
 
     <persistence-unit name="world" transaction-type="RESOURCE_LOCAL">
 
+        <class>pe.edu.i202331020.entity.City</class>
+        <class>pe.edu.i202331020.entity.Country</class>
+        <class>pe.edu.i202331020.entity.CountryLanguage</class>
+
         <properties>
 
             <!-- Database connection settings -->

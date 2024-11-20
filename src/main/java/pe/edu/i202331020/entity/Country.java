@@ -2,6 +2,9 @@ package pe.edu.i202331020.entity;
 
 import jakarta.persistence.*;
 import pe.edu.i202331020.enums.ContinentEnum;
+import pe.edu.i202331020.utils.ContinentEnumConverter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "country")
@@ -10,7 +13,7 @@ public class Country {
     @Id
     private String code;
     private String name;
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = ContinentEnumConverter.class)
     private ContinentEnum continent;
     private String region;
     private Double surfaceArea;
@@ -25,14 +28,18 @@ public class Country {
     private Integer capital;
     private String code2;
 
+    @OneToMany(mappedBy = "country")
+    private List<City> cities;
+
+    @OneToMany(mappedBy = "country")
+    private List<CountryLanguage> languages;
+
     public Country() {
     }
 
     public Country(String code) {}
 
-    public Country(String code, String name, ContinentEnum continent, String region, Double surfaceArea,
-                   Integer indepYear, Integer population, Double lifeExpectancy, Double gnp, Double gnpOld,
-                   String localName, String governmentForm, String headOfState, Integer capital, String code2) {
+    public Country(String code, String name, ContinentEnum continent, String region, Double surfaceArea, Integer indepYear, Integer population, Double lifeExpectancy, Double gnp, Double gnpOld, String localName, String governmentForm, String headOfState, Integer capital, String code2, List<City> cities, List<CountryLanguage> languages) {
         this.code = code;
         this.name = name;
         this.continent = continent;
@@ -48,6 +55,8 @@ public class Country {
         this.headOfState = headOfState;
         this.capital = capital;
         this.code2 = code2;
+        this.cities = cities;
+        this.languages = languages;
     }
 
     public String getCode() {
@@ -170,6 +179,22 @@ public class Country {
         this.code2 = code2;
     }
 
+    public List<City> getCities() {
+        return cities;
+    }
+
+    public void setCities(List<City> cities) {
+        this.cities = cities;
+    }
+
+    public List<CountryLanguage> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(List<CountryLanguage> languages) {
+        this.languages = languages;
+    }
+
     @Override
     public String toString() {
         return "Country{" +
@@ -188,6 +213,8 @@ public class Country {
                 ", headOfState='" + headOfState + '\'' +
                 ", capital=" + capital +
                 ", code2='" + code2 + '\'' +
+                ", cities=" + cities +
+                ", languages=" + languages +
                 '}';
     }
 }

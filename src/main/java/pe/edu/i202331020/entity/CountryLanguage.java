@@ -8,28 +8,31 @@ import pe.edu.i202331020.enums.IsOfficialEnum;
 public class CountryLanguage {
 
     @Id
-    private String country;
-    @Id
+    private String codeCountry;
     private String language;
     @Enumerated(EnumType.STRING)
     private IsOfficialEnum isOfficial;
     private Double percentage;
 
+    @ManyToOne
+    @JoinColumn(name = "CountryCode")
+    private Country country;
+
     public CountryLanguage() {
     }
 
-    public CountryLanguage(String country) {
-        this.country = country;
+    public CountryLanguage(String codeCountry) {
+        this.codeCountry = codeCountry;
     }
 
-    public CountryLanguage(String country, String language, Enum isOfficial, Double percentage) {}
+    public CountryLanguage(String codeCountry, String language, Enum isOfficial, Double percentage, Country country) {}
 
-    public String getCountry() {
-        return country;
+    public String getCodeCountry() {
+        return codeCountry;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setCodeCountry(String codeCountry) {
+        this.codeCountry = codeCountry;
     }
 
     public String getLanguage() {
@@ -40,11 +43,11 @@ public class CountryLanguage {
         this.language = language;
     }
 
-    public Enum getIsOfficial() {
+    public IsOfficialEnum getIsOfficial() {
         return isOfficial;
     }
 
-    public void setIsOfficial(Enum isOfficial) {
+    public void setIsOfficial(IsOfficialEnum isOfficial) {
         this.isOfficial = isOfficial;
     }
 
@@ -56,13 +59,22 @@ public class CountryLanguage {
         this.percentage = percentage;
     }
 
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
     @Override
     public String toString() {
         return "CountryLanguage{" +
-                "country='" + country + '\'' +
+                "codeCountry='" + codeCountry + '\'' +
                 ", language='" + language + '\'' +
                 ", isOfficial=" + isOfficial +
                 ", percentage=" + percentage +
+                ", country=" + country +
                 '}';
     }
 }

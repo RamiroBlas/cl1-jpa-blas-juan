@@ -1,19 +1,22 @@
 package pe.edu.i202331020.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "city")
 public class City {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String countryCode;
     private String district;
     private int population;
+
+    @ManyToOne
+    @JoinColumn(name = "CountryCode")
+    private Country country;
 
     public City() {
     }
@@ -22,12 +25,13 @@ public class City {
         this.id = id;
     }
 
-    public City(int id, String name, String countryCode, String district, int population) {
+    public City(int id, String name, String countryCode, String district, int population, Country country) {
         this.id = id;
         this.name = name;
         this.countryCode = countryCode;
         this.district = district;
         this.population = population;
+        this.country = country;
     }
 
     public int getId() {
@@ -70,6 +74,14 @@ public class City {
         this.population = population;
     }
 
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
     @Override
     public String toString() {
         return "City{" +
@@ -78,6 +90,7 @@ public class City {
                 ", countryCode='" + countryCode + '\'' +
                 ", district='" + district + '\'' +
                 ", population=" + population +
+                ", country=" + country +
                 '}';
     }
 }
