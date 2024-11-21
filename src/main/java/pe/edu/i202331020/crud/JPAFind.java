@@ -13,12 +13,16 @@ public class JPAFind {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("world");
         EntityManager em = emf.createEntityManager();
 
-        // obtener libro
+        // Buscar el country
         Country country = em.find(Country.class, "PER");
-        country.getCities().stream().filter(
-                city -> city.getPopulation() > 700.000
-        ).forEach(System.out::println);
 
+        if (country != null) {
+            country.getCities().stream()
+                    .filter(city -> city.getPopulation() > 700_000)
+                    .forEach(city -> System.out.println("cidudad es: " + city.getName()));
+        } else {
+            System.out.println("País no encontrado.");
+        }
     }
 
 }

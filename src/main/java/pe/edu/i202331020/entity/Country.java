@@ -28,10 +28,10 @@ public class Country {
     private Integer capital;
     private String code2;
 
-    @OneToMany(mappedBy = "country")
+    @OneToMany(mappedBy = "country", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<City> cities;
 
-    @OneToMany(mappedBy = "country")
+    @OneToMany(mappedBy = "country", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<CountryLanguage> languages;
 
     public Country() {
@@ -213,8 +213,7 @@ public class Country {
                 ", headOfState='" + headOfState + '\'' +
                 ", capital=" + capital +
                 ", code2='" + code2 + '\'' +
-                ", cities=" + cities +
-                ", languages=" + languages +
+                ", numberOfCities=" + (cities != null ? cities.size() : 0) +
                 '}';
     }
 }

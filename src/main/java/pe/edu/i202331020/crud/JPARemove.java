@@ -3,22 +3,22 @@ package pe.edu.i202331020.crud;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import pe.edu.i202331020.entity.City;
+import pe.edu.i202331020.entity.Country;
 
 public class JPARemove {
 
     public static void main(String[] args) {
 
         // referenciar al EMF y EM
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("biblioteca");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("world");
         EntityManager em = emf.createEntityManager();
 
-        // obtener libro
-        City city = em.find(City.class, "A2");
+        // obtener country
+        Country countryToRemove = em.find(Country.class, "AEA");
 
         // remove
         em.getTransaction().begin();
-        em.remove(city);
+        em.remove(countryToRemove);
         em.getTransaction().commit();
 
 

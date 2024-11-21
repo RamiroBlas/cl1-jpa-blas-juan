@@ -10,11 +10,10 @@ public class City {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private String countryCode;
     private String district;
     private int population;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "CountryCode")
     private Country country;
 
@@ -25,10 +24,8 @@ public class City {
         this.id = id;
     }
 
-    public City(int id, String name, String countryCode, String district, int population, Country country) {
-        this.id = id;
+    public City(String name, String district, int population, Country country) {
         this.name = name;
-        this.countryCode = countryCode;
         this.district = district;
         this.population = population;
         this.country = country;
@@ -48,14 +45,6 @@ public class City {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCountryCode() {
-        return countryCode;
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
     }
 
     public String getDistrict() {
@@ -87,10 +76,9 @@ public class City {
         return "City{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", countryCode='" + countryCode + '\'' +
                 ", district='" + district + '\'' +
                 ", population=" + population +
-                ", country=" + country +
+                ", country=" + (country != null ? country.getCode() : "null") +
                 '}';
     }
 }

@@ -8,31 +8,29 @@ import pe.edu.i202331020.enums.IsOfficialEnum;
 public class CountryLanguage {
 
     @Id
-    private String codeCountry;
     private String language;
     @Enumerated(EnumType.STRING)
     private IsOfficialEnum isOfficial;
     private Double percentage;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "CountryCode")
+    @Id
     private Country country;
 
     public CountryLanguage() {
     }
 
-    public CountryLanguage(String codeCountry) {
-        this.codeCountry = codeCountry;
+    public CountryLanguage(String language, Country country) {
+        this.language = language;
+        this.country = country;
     }
 
-    public CountryLanguage(String codeCountry, String language, Enum isOfficial, Double percentage, Country country) {}
-
-    public String getCodeCountry() {
-        return codeCountry;
-    }
-
-    public void setCodeCountry(String codeCountry) {
-        this.codeCountry = codeCountry;
+    public CountryLanguage(String language, IsOfficialEnum isOfficial, Double percentage, Country country) {
+        this.language = language;
+        this.isOfficial = isOfficial;
+        this.percentage = percentage;
+        this.country = country;
     }
 
     public String getLanguage() {
@@ -70,8 +68,7 @@ public class CountryLanguage {
     @Override
     public String toString() {
         return "CountryLanguage{" +
-                "codeCountry='" + codeCountry + '\'' +
-                ", language='" + language + '\'' +
+                "language='" + language + '\'' +
                 ", isOfficial=" + isOfficial +
                 ", percentage=" + percentage +
                 ", country=" + country +
